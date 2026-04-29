@@ -1,0 +1,6 @@
+interface:
+  display_name: "Keychain"
+  short_description: "Read and write macOS Keychain values"
+  default_prompt: "Use $keychain to store or read a macOS Keychain value by item name."
+  icon_small: "./assets/keychain.png"
+  icon_large: "./assets/keychain.png"
