@@ -66,18 +66,29 @@ or:
 Use the Keychain skill to check whether github_token exists.
 ```
 
-The interaction is intentionally simple:
+The simple item-name interaction is intentionally small:
 
 - To store a value, provide an item name and the value.
 - To read a value, provide the item name.
 - Normal read checks show safe metadata, not the secret itself.
 - Raw values should only be exposed when you explicitly ask for that.
 
+Internally, each item is stored as a macOS generic password under the fixed service `keychain_skill`. The user-facing item name is stored as the Keychain account, so `github_token` becomes `service=keychain_skill`, `account=github_token`.
+
+The skill also supports explicit service/account storage:
+
+```bash
+./scripts/keychain-write-account.sh "example.com" "user@example.com" "TOKEN"
+./scripts/keychain-read-account.sh "example.com" "user@example.com"
+```
+
 ## Safety Model
 
 The skill is designed to avoid accidental secret disclosure:
 
 - Secrets are stored in the macOS Keychain, not in this repository.
+- The fixed Keychain service is `keychain_skill`; item names are stored as Keychain accounts.
+- Advanced service/account entries use the service and account values provided by the caller.
 - Normal reads report whether an item exists and how long the value is.
 - Secret values are not printed by default.
 - Raw values are meant for controlled command use, not for chat transcripts or generated files.

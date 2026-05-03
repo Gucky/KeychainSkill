@@ -1,17 +1,21 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ $# -ne 1 ]]; then
-  printf 'usage: %s ITEM_NAME\n' "$0" >&2
+if [[ $# -ne 2 ]]; then
+  printf 'usage: %s SERVICE ACCOUNT\n' "$0" >&2
   exit 64
 fi
 
-item_name=$1
-service="keychain_skill"
-account=$item_name
+service=$1
+account=$2
 
-if [[ -z "$item_name" ]]; then
-  printf 'error=item_name_required\n' >&2
+if [[ -z "$service" ]]; then
+  printf 'error=service_required\n' >&2
+  exit 64
+fi
+
+if [[ -z "$account" ]]; then
+  printf 'error=account_required\n' >&2
   exit 64
 fi
 
@@ -23,13 +27,11 @@ set -e
 printf 'rc=%d\n' "$rc"
 if [[ $rc -eq 0 ]]; then
   printf 'found=yes\n'
-  printf 'item=%s\n' "$item_name"
   printf 'service=%s\n' "$service"
   printf 'account=%s\n' "$account"
   printf 'length=%d\n' "${#output}"
 else
   printf 'found=unknown\n'
-  printf 'item=%s\n' "$item_name"
   printf 'service=%s\n' "$service"
   printf 'account=%s\n' "$account"
   printf 'error=%s\n' "$output"
