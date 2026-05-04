@@ -2,7 +2,7 @@
   <img src="keychain/assets/keychain_circle.png" alt="Keychain" width="140">
 </p>
 
-<h1 align="center">Keychain Agent Skill</h1>
+<h1 align="center">Keychain Skill</h1>
 
 <p align="center">
   <img alt="AI Agents - Skill" src="https://img.shields.io/badge/AI--Agents-Skill-EF9035?style=flat">
